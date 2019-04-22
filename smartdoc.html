@@ -1,0 +1,169 @@
+<html>
+<head>
+<title>smartdoc</title>
+<script>
+function open_software() {
+	window.open("https://github.com/hyacinth321/smartdoc");
+}
+function open_document(){
+	window.open("https://github.com/hyacinth321/smartdoc/blob/master/README.md");
+}
+</script>
+<style type="text/css">
+body {
+	font-family:Verdana, Geneva, sans-serif;
+	text-align:center;
+}
+h1{
+	color:#783D3D;
+}
+table{
+	margin-top:5px;
+	border-collapse:collapse;
+	border:1px solid #aaa;
+	width:50%;
+}
+.rectangle{
+	margin-top:40px;
+	width:840px;
+	text-align:center;
+}
+.part1{
+	margin-top:30px;
+	margin-left:50px;
+	margin-right:50px;
+	background-color:#4CAF50;
+	background: -webkit-linear-gradient(#09F, white);/* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#09F, white); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#09F, white); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#09F, white); /* 标准的语法（必须放在最后） */
+	opacity:0.9;
+	border:none;
+	text-align:center;
+	text-decoration:none;
+	display:inline-block;
+	border-radius:5px;
+}
+
+.half_part{
+	width:40%;
+	height:300px;
+	margin-left:50px;
+	margin-right:50px;
+	background: -webkit-linear-gradient(white,#09F);/* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(white,#09F); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(white,#09F); /* Firefox 3.6 - 15 */
+    background: linear-gradient(white,#09F); /* 标准的语法（必须放在最后）*/ 
+}
+.left{
+	float:left;
+}
+.right{
+	float:right;
+}
+.content-biaoti{
+	clear:both;
+	text-align:center;
+	padding-top:10px;
+}
+.content{
+	clear:both;
+	margin-top:20px;
+	margin-bottom:20px;
+	margin-left:60px;
+	margin-right:60px;
+	text-align:left;
+}
+.link{
+	width:125px;
+	height:20px;
+	text-align:center;
+	float:left;
+	
+}
+.button{
+	background-color:#09F;
+	border:none;
+	color:white;
+	padding:10px 10px;
+	text-align:center;
+	text-decoration:none;
+	display:inline-block;
+	font-size:16px;
+	margin:10px 30px;
+	margin-top:20px;
+	cursor: pointer;
+	opacity:0.9;
+}
+.button:hover{
+	background-color:#600;
+}
+.foot{
+	position:fixed;
+	bottom:0px;
+	left:40%;
+	background:none;
+	margin:0;
+	padding:0;
+	color:#400040;
+	font-style:oblique;
+}
+</style>
+</head>
+<body>
+<h1 align="center">SmartDoc</h1>
+<div align="center">
+
+<div class="rectangle">
+<a href="#license"><div class="link button">license</div></a>
+<a href="#status"><div class="link button">status</div></a>
+<a href="#button"><div class="link button">document</div></a>
+<a href="#version-information"><div class="link button">version-info</div></a>
+</div>
+</div>
+
+<div class="part1" id="introduction">
+<div class="content-biaoti">Project  Introduction</div>
+<div class="content">This is a smartdoc project. Specific operations are as follows: when running a corresponding Python file such as smartdoc.py and passing the corresponding srs.txt and code.py files to it, two HTML files will be automatically generated, which are srs.html and code.html, and the content of srs.txt is the srs of code.py. In the generated code.html file, there are not only corresponding code, but also strings in front of each block of code (with specific forms), which can link to another HTML file, that is, the specific location of srs.html. Correspondingly, in the srs.html file can also jump to the corresponding location of the code.html file.</div>
+</div>
+
+<div id="button">
+<input type="button" class="button" value="Download Software" onClick="open_software()">
+<input type="button" class="button" value="Software Document" onClick="open_document()">
+</div>
+
+<div>
+<div class="part1 half_part left" id="document">
+<p align="center">Document</p>
+SmartDoc, a project which aim at making users to find the corresponding explanation in the srs file more quickly when thinking about the code.<br/>
+The format of the command line is python smartdoc.py code.py srs.txt. The srs.txt is a plain text file and the code.py is a source code file.<br/>
+Two html file will be generated which are code.html and srs.html.<br/>
+In the srs.html, there will be links which can be in a sentence "{see ???}" to go the corresponding place in the code.html. And code.html also has links to go to srs.html for correct explanation.<br/>
+</div>
+
+<div class="part1 half_part right" id="version-information">
+<p align="center">Version-Info</p>
+0.1.0: html file generated via txt file.<br/><br/>
+0.1.1: Change the foramt of the generated html file.<br/><br/>
+0.2.0: Link the two generated html file via specific word.<br/>
+</div>
+</div>
+
+<div>
+<div class="part1 half_part left" id="license">
+<p align="center">License</p>
+<img src="license.jpg" width="300px" height="200px" alt="license"/>
+</div>
+
+<div class="part1 half_part right" id="status">
+<p align="center">Status</p>
+In Development
+</div>
+</div>
+
+<div class="foot" align="center">
+	<p align="center">current version:0.2.0</p>
+    <p align="center">connact me:422491927@qq.com</p>
+</div>
+</body>
+</html>
