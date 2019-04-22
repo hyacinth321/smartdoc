@@ -36,6 +36,7 @@ def write_srs_content(line):
 
 def write_code_html(txt,html,gen_code_html):
 	write_head(html,'code')
+	write_css(html)
 	content = '<pre style="word-wrap: break-word; white-space: pre-wrap;">'
 	html.write(content)
 	for line in txt.readlines():
@@ -52,6 +53,7 @@ def write_code_html(txt,html,gen_code_html):
 
 def write_srs_html(txt,html,gen_srs_html):
 	write_head(html,'srs')
+	write_css(html)
 	content = '<pre style="word-wrap: break-word; white-space: pre-wrap;">'
 	html.write(content)
 	for line in txt.readlines():
@@ -65,15 +67,26 @@ def write_srs_html(txt,html,gen_srs_html):
 	html.close()
 	#webbrowser.open(gen_srs_html,new=1)
 
-
 def write_head(html,title):
 	head = """
 	<html>
-	<head><title>"""+title+"""</title></head>
-	<body>
+	<head><title>"""+title+"""</title>
 	"""
 	print(head)
 	html.write(head)
+def write_css(html):
+	css = """
+	<style>
+	a:link {background-color:#B2FF99;} 
+	a:visited {background-color:#FFFF85;}
+	a:hover {background-color:#FF704D;}
+	a:active {background-color:#FF704D;}
+	</style>
+	</head>
+	<body>
+	"""
+	print(css)
+	html.write(css)
 def write_foot(html):
 	foot = """
 	</body>
