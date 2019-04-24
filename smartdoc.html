@@ -15,7 +15,7 @@ body {
 	text-align:center;
 }
 h1{
-	color:#783D3D;
+	color:#8B5F65;
 }
 table{
 	margin-top:5px;
@@ -25,18 +25,15 @@ table{
 }
 .rectangle{
 	margin-top:40px;
-	width:840px;
+	width:1030px;
 	text-align:center;
 }
 .part1{
-	margin-top:30px;
-	margin-left:50px;
-	margin-right:50px;
-	background-color:#4CAF50;
-	background: -webkit-linear-gradient(#09F, white);/* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(#09F, white); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(#09F, white); /* Firefox 3.6 - 15 */
-    background: linear-gradient(#09F, white); /* 标准的语法（必须放在最后） */
+	margin: 30px 50px 0 50px;
+	background: -webkit-linear-gradient(#B0E0E6, #FCFCFC);/* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#B0E0E6, #FCFCFC); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#B0E0E6, #FCFCFC); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#B0E0E6, #FCFCFC); /* 标准的语法（必须放在最后） */
 	opacity:0.9;
 	border:none;
 	text-align:center;
@@ -48,12 +45,11 @@ table{
 .half_part{
 	width:40%;
 	height:300px;
-	margin-left:50px;
-	margin-right:50px;
-	background: -webkit-linear-gradient(white,#09F);/* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(white,#09F); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(white,#09F); /* Firefox 3.6 - 15 */
-    background: linear-gradient(white,#09F); /* 标准的语法（必须放在最后）*/ 
+	margin: 20px 50px;
+	background: -webkit-linear-gradient(#F8F8FF,#B0E0E6);/* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#F8F8FF,#B0E0E6); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#F8F8FF,#B0E0E6); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#F8F8FF,#B0E0E6); /* 标准的语法（必须放在最后）*/ 
 }
 .left{
 	float:left;
@@ -68,10 +64,7 @@ table{
 }
 .content{
 	clear:both;
-	margin-top:20px;
-	margin-bottom:20px;
-	margin-left:60px;
-	margin-right:60px;
+	margin: 20px 60px;
 	text-align:left;
 }
 .link{
@@ -82,7 +75,7 @@ table{
 	
 }
 .button{
-	background-color:#09F;
+	background-color:#8DB6CD;
 	border:none;
 	color:white;
 	padding:10px 10px;
@@ -90,13 +83,12 @@ table{
 	text-decoration:none;
 	display:inline-block;
 	font-size:16px;
-	margin:10px 30px;
-	margin-top:20px;
+	margin:5px 30px 10px;
 	cursor: pointer;
 	opacity:0.9;
 }
 .button:hover{
-	background-color:#600;
+	background-color:#CD919E;
 }
 .foot{
 	position:fixed;
@@ -115,10 +107,11 @@ table{
 <div align="center">
 
 <div class="rectangle">
-<a href="#license"><div class="link button">license</div></a>
-<a href="#status"><div class="link button">status</div></a>
-<a href="#button"><div class="link button">document</div></a>
-<a href="#version-information"><div class="link button">version-info</div></a>
+<div class="link button" onclick="open_software()">Download</div>
+<a href="#license"><div class="link button">License</div></a>
+<a href="#status"><div class="link button">Status</div></a>
+<a href="#document"><div class="link button">Document</div></a>
+<a href="#version-information"><div class="link button">Version-Info</div></a>
 </div>
 </div>
 
@@ -127,25 +120,25 @@ table{
 <div class="content">This is a smartdoc project. Specific operations are as follows: when running a corresponding Python file such as smartdoc.py and passing the corresponding srs.txt and code.py files to it, two HTML files will be automatically generated, which are srs.html and code.html, and the content of srs.txt is the srs of code.py. In the generated code.html file, there are not only corresponding code, but also strings in front of each block of code (with specific forms), which can link to another HTML file, that is, the specific location of srs.html. Correspondingly, in the srs.html file can also jump to the corresponding location of the code.html file.</div>
 </div>
 
-<div id="button">
-<input type="button" class="button" value="Download Software" onClick="open_software()">
-<input type="button" class="button" value="Software Document" onClick="open_document()">
-</div>
+<hr style=" margin-top:40px;height:2px;border:none;border-top:2px dotted #185598;" />
 
 <div>
 <div class="part1 half_part left" id="document">
 <p align="center">Document</p>
-SmartDoc, a project which aim at making users to find the corresponding explanation in the srs file more quickly when thinking about the code.<br/>
-The format of the command line is python smartdoc.py code.py srs.txt. The srs.txt is a plain text file and the code.py is a source code file.<br/>
-Two html file will be generated which are code.html and srs.html.<br/>
-In the srs.html, there will be links which can be in a sentence "{see ???}" to go the corresponding place in the code.html. And code.html also has links to go to srs.html for correct explanation.<br/>
+<p align="left">
+&emsp;SmartDoc, a project which aim at making users to find the corresponding explanation in the srs file more quickly when thinking about the code.<br/>
+&emsp;Two html file will be generated which are code.html and srs.html.<br/>
+&emsp;In the srs.html, there will be links which can be in a sentence "{see ???}" to go the corresponding place in the code.html. And code.html also has links to go to srs.html for correct explanation.<br/>
+</p>
+<p align="center"><input type="button" class="button" value="Detailed Document" onClick="open_document()"></p>
 </div>
 
 <div class="part1 half_part right" id="version-information">
 <p align="center">Version-Info</p>
 0.1.0: html file generated via txt file.<br/><br/>
 0.1.1: Change the foramt of the generated html file.<br/><br/>
-0.2.0: Link the two generated html file via specific word.<br/>
+0.2.0: Link the two generated html file via specific word.<br/><br/>
+0.2.1: Change the style of the link in the generated html.<br/>
 </div>
 </div>
 
@@ -157,12 +150,12 @@ In the srs.html, there will be links which can be in a sentence "{see ???}" to g
 
 <div class="part1 half_part right" id="status">
 <p align="center">Status</p>
-In Development
+Still In Development
 </div>
 </div>
 
 <div class="foot" align="center">
-	<p align="center">current version:0.2.0</p>
+	<p align="center">current version:0.2.1</p>
     <p align="center">connact me:422491927@qq.com</p>
 </div>
 </body>
