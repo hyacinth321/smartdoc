@@ -1,6 +1,7 @@
 <html>
 <head>
 <title>smartdoc</title>
+<meta charset="utf-8">
 <script>
 function open_software() {
 	window.open("https://github.com/hyacinth321/smartdoc");
@@ -24,6 +25,7 @@ table{
 	width:50%;
 }
 .rectangle{
+	clear:both;
 	margin-top:40px;
 	width:1030px;
 	text-align:center;
@@ -41,15 +43,19 @@ table{
 	display:inline-block;
 	border-radius:5px;
 }
-
+.top{
+	margin-left:50px;
+	margin-right:150px;
+	line-height:100px;
+}
+a{
+	text-decoration:none;
+	color:#B0E0E6;
+}
 .half_part{
 	width:40%;
 	height:300px;
 	margin: 20px 50px;
-	background: -webkit-linear-gradient(#F8F8FF,#B0E0E6);/* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(#F8F8FF,#B0E0E6); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(#F8F8FF,#B0E0E6); /* Firefox 3.6 - 15 */
-    background: linear-gradient(#F8F8FF,#B0E0E6); /* 标准的语法（必须放在最后）*/ 
 }
 .left{
 	float:left;
@@ -60,7 +66,7 @@ table{
 .content-biaoti{
 	clear:both;
 	text-align:center;
-	padding-top:10px;
+	padding-top:20px;
 }
 .content{
 	clear:both;
@@ -86,6 +92,7 @@ table{
 	margin:5px 30px 10px;
 	cursor: pointer;
 	opacity:0.9;
+	margin-bottom:0;
 }
 .button:hover{
 	background-color:#CD919E;
@@ -103,11 +110,20 @@ table{
 </style>
 </head>
 <body>
-<h1 align="center">SmartDoc</h1>
-<div align="center">
+<div>
+<div class="left top">
+<img src="pictures/logo.png" width="260px" height="120px"/>
+</div>
+<div class="right top">
+<p style="text-align:right;color:#B0E0E6;">
+<a href="smartdoc.html">我目前</a>   |   <a href="smartdoc.html">不知道</a>   |   <a href="smartdoc.html">加什么</a>
+</p>
+</div>
+</div>
 
+<div align="center">
 <div class="rectangle">
-<div class="link button" onclick="open_software()">Download</div>
+<div class="link button" onClick="open_software()">Download</div>
 <a href="#license"><div class="link button">License</div></a>
 <a href="#status"><div class="link button">Status</div></a>
 <a href="#document"><div class="link button">Document</div></a>
@@ -116,16 +132,16 @@ table{
 </div>
 
 <div class="part1" id="introduction">
-<div class="content-biaoti">Project  Introduction</div>
-<div class="content">This is a smartdoc project. Specific operations are as follows: when running a corresponding Python file such as smartdoc.py and passing the corresponding srs.txt and code.py files to it, two HTML files will be automatically generated, which are srs.html and code.html, and the content of srs.txt is the srs of code.py. In the generated code.html file, there are not only corresponding code, but also strings in front of each block of code (with specific forms), which can link to another HTML file, that is, the specific location of srs.html. Correspondingly, in the srs.html file can also jump to the corresponding location of the code.html file.</div>
+<div class="content-biaoti">PROJECT  INTRODUVTION</div>
+<div class="content">&emsp;This is a smartdoc project. Specific operations are as follows: when running a corresponding Python file such as smartdoc.py and passing the corresponding srs.txt and code.py files to it, two HTML files will be automatically generated, which are srs.html and code.html, and the content of srs.txt is the srs of code.py. In the generated code.html file, there are not only corresponding code, but also strings in front of each block of code (with specific forms), which can link to another HTML file, that is, the specific location of srs.html. Correspondingly, in the srs.html file can also jump to the corresponding location of the code.html file.</div>
 </div>
 
 <hr style=" margin-top:40px;height:2px;border:none;border-top:2px dotted #185598;" />
 
 <div>
 <div class="part1 half_part left" id="document">
-<p align="center">Document</p>
-<p align="left">
+<p align="center">DOCUMENT</p>
+<p class="content">
 &emsp;SmartDoc, a project which aim at making users to find the corresponding explanation in the srs file more quickly when thinking about the code.<br/>
 &emsp;Two html file will be generated which are code.html and srs.html.<br/>
 &emsp;In the srs.html, there will be links which can be in a sentence "{see ???}" to go the corresponding place in the code.html. And code.html also has links to go to srs.html for correct explanation.<br/>
@@ -134,7 +150,7 @@ table{
 </div>
 
 <div class="part1 half_part right" id="version-information">
-<p align="center">Version-Info</p>
+<p align="center">VERSION-INFO</p>
 0.1.0: html file generated via txt file.<br/><br/>
 0.1.1: Change the foramt of the generated html file.<br/><br/>
 0.2.0: Link the two generated html file via specific word.<br/><br/>
@@ -144,19 +160,19 @@ table{
 
 <div>
 <div class="part1 half_part left" id="license">
-<p align="center">License</p>
-<img src="license.jpg" width="300px" height="200px" alt="license"/>
+<p align="center">LICENSE</p>
+<img src="pictures/license.jpg" width="300px" height="200px" alt="license"/>
 </div>
 
 <div class="part1 half_part right" id="status">
-<p align="center">Status</p>
+<p align="center">STATUS</p>
 Still In Development
 </div>
 </div>
 
 <div class="foot" align="center">
-	<p align="center">current version:0.2.1</p>
-    <p align="center">connact me:422491927@qq.com</p>
+	<p align="center">Current Version:0.2.1</p>
+    <p align="center">Connact JinRuoni:422491927@qq.com</p>
 </div>
 </body>
 </html>
