@@ -2,11 +2,16 @@ import webbrowser
 import sys
 import re
 
+# C:\Users\Administrator\Desktop\file\smartdoc\code.py
+# C:\Users\Administrator\Desktop\file\smartdoc\srs.txt
+
 file_code_addr = sys.argv[1]
 file_srs_addr = sys.argv[2]
 gen_code_html = "code.html"
 gen_srs_html = "srs.html"
-dict ={}
+dict_rq = {}
+dict_ra = {}
+dict_tc = {}
 
 f_code_txt = open(file_code_addr,'r')
 f_srs_txt = open(file_srs_addr,'r')
@@ -16,30 +21,74 @@ f_srs_html = open(gen_srs_html,'w')
 #code.py
 def write_code_content(line):
 	if line.find("#{see rq")!=-1:
-		id_name = re.findall(r"rq\d",line)
-		if not id_name[0] in dict:
-			dict[id_name[0]] = 1
+		id_name_rq = re.findall(r"rq\d",line)
+		print(id_name_rq)
+		if not id_name_rq[0] in dict_rq:
+			dict_rq[id_name_rq[0]] = 1
 		else:
-			dict[id_name[0]] += 1
-		id_whole = id_name[0]+"_"+str(dict[id_name[0]])
-		link = gen_srs_html+"#"+id_name[0]
+			dict_rq[id_name_rq[0]] += 1
+		id_whole = id_name_rq[0]+"_"+str(dict_rq[id_name_rq[0]])
+		link = gen_srs_html+"#"+id_name_rq[0]
+		line = "<a href='"+link+"' id='"+id_whole+"'>"+line+"</a>"
+	if line.find("#{see ra")!=-1:
+		id_name_ra = re.findall(r"ra\d",line)
+		print(id_name_ra)
+		if not id_name_ra[0] in dict_ra:
+			dict_ra[id_name_ra[0]] = 1
+		else:
+			dict_ra[id_name_ra[0]] += 1
+		id_whole = id_name_ra[0]+"_"+str(dict_ra[id_name_ra[0]])
+		link = gen_srs_html+"#"+id_name_ra[0]
+		line = "<a href='"+link+"' id='"+id_whole+"'>"+line+"</a>"
+	if line.find("#{see tc")!=-1:
+		id_name_tc = re.findall(r"tc\d",line)
+		print(id_name_tc)
+		if not id_name_tc[0] in dict_tc:
+			dict_tc[id_name_tc[0]] = 1
+		else:
+			dict_tc[id_name_tc[0]] += 1
+		id_whole = id_name_tc[0]+"_"+str(dict_tc[id_name_tc[0]])
+		link = gen_srs_html+"#"+id_name_tc[0]
 		line = "<a href='"+link+"' id='"+id_whole+"'>"+line+"</a>"
 	return line
 #srs.txt
 def write_srs_content(line):
 	if line.find("[id=rq")!=-1:
-		id_name = re.findall(r"rq\d",line)
-		link = gen_code_html+"#"+id_name[0]
-		line = re.sub(r"rq\d","<a href='"+link+"' id='"+id_name[0]+"'>"+id_name[0]+"</a>",line)
+		id_name_rq = re.findall(r"rq\d",line)
+		link = gen_code_html+"#"+id_name_rq[0]
+		line = re.sub(r"rq\d","<a href='"+link+"' id='"+id_name_rq[0]+"'>"+id_name_rq[0]+"</a>",line)
 		select = """<form action="" method="get" style="margin:0px;"><select name="jump" id="jumo" onchange="MM_jump('window',this)"><option value="code.html">请选择</option>"""
 		i = 1
-		while (i <= dict[id_name[0]] ):
-			link = gen_code_html+"#"+id_name[0]+"_"+(str(i))
+		while (i <= dict_rq[id_name_rq[0]] ):
+			link = gen_code_html+"#"+id_name_rq[0]+"_"+(str(i))
 			select += '<option value="'+link+'">'+(str(i))+'</option>'
 			i+=1
 		select += '</select></form>'
 		line +=select
-
+	if line.find("[id=ra")!=-1:
+		id_name_ra = re.findall(r"ra\d",line)
+		link = gen_code_html+"#"+id_name_ra[0]
+		line = re.sub(r"ra\d","<a href='"+link+"' id='"+id_name_ra[0]+"'>"+id_name_ra[0]+"</a>",line)
+		select = """<form action="" method="get" style="margin:0px;"><select name="jump" id="jumo" onchange="MM_jump('window',this)"><option value="code.html">请选择</option>"""
+		i = 1
+		while (i <= dict_ra[id_name_ra[0]] ):
+			link = gen_code_html+"#"+id_name_ra[0]+"_"+(str(i))
+			select += '<option value="'+link+'">'+(str(i))+'</option>'
+			i+=1
+		select += '</select></form>'
+		line +=select
+	if line.find("[id=tc")!=-1:
+		id_name_tc = re.findall(r"tc\d",line)
+		link = gen_code_html+"#"+id_name_tc[0]
+		line = re.sub(r"tc\d","<a href='"+link+"' id='"+id_name_tc[0]+"'>"+id_name_tc[0]+"</a>",line)
+		select = """<form action="" method="get" style="margin:0px;"><select name="jump" id="jumo" onchange="MM_jump('window',this)"><option value="code.html">请选择</option>"""
+		i = 1
+		while (i <= dict_tc[id_name_tc[0]] ):
+			link = gen_code_html+"#"+id_name_tc[0]+"_"+(str(i))
+			select += '<option value="'+link+'">'+(str(i))+'</option>'
+			i+=1
+		select += '</select></form>'
+		line +=select
 	return line
 
 def write_code_html(txt,html,gen_code_html):
