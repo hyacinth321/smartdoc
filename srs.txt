@@ -14,6 +14,6 @@
  Priority   [Medium]
 
 @Requirement [id=rq4] [description = Return a sorted list of tuples, each tuple containing a key and a value. Note that the tuples are order in descending order of the value.]
- Rationale  [id=ra4_sort] [description=Sort lists according to the specified key.]
- TestCase   [id=tc_test] [description = When the input is {'how':2, 'are':3, 'you':1, 'fine':2}, then the return result will be  (('you', 1),('how',2),('fine',2),('are',3)).]
+ Rationale  [id=ra4] [description=Sort lists according to the specified key.]
+ TestCase   [id=tc4] [description = When the input is {'how':2, 'are':3, 'you':1, 'fine':2}, then the return result will be  (('you', 1),('how',2),('fine',2),('are',3)).]
  Priority   [Low]
