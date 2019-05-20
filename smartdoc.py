@@ -69,24 +69,51 @@ def write_code_content(line):
 
 # srs_part(line,rq,dict_rq,srs)
 # 用于为#{see ..}生成链接
+# 将内容添入table显示在html页面
 def srs_part(line,name,dict_name,srs_name):
 	id_name = re.findall((name+r"\d"),line)
+	# 生成table
+	if name == 'rq':
+		line = re.sub("@Requirement","""
+			<table align="center" border="1" width="80%" bgcolor="#e9faff" cellpadding="2">
+			<tr align="center">
+           		<td>Name</td>
+           		<td>id</td>
+            	<td>description</td>
+            	<td>link</td>
+        	</tr>
+        	<tr align="center">
+				<td>Requirement</td>
+			""",line)
+	elif name == 'ra':
+		line = re.sub("Rationale","""
+				</td>
+			</tr>
+			<tr align="center">
+				<td>Rational</td>
+			""",line)
+	else:
+		line = re.sub("TestCase","""
+				</td>
+			<tr align="center">
+				<td>TestCase</td>
+			""",line)
+	line = line.replace("[id","<td>[id")
+	line = line.replace("[description","</td><td>[description")
+
+	# 修改id链接
 	srs[id_name[0]]=''
 	link = gen_code_html+"#"+id_name[0]
-	#print("&"+id_name[0])
-	#line = re.sub(id_name[0],"<a href='"+link+"' id='"+id_name[0]+"'>"+id_name[0]+"</a>",line)
-	select = """<form action="" method="get" style="margin:0px;"><select name="jump" id="jumo" onchange="MM_jump('window',this)"><option value="srs.html">请选择需要跳转至的链接</option>"""
+	select = """</td><td><form action="" method="get" style="margin:0px;"><select name="jump" id="jumo" onchange="MM_jump('window',this)"><option value="srs.html">please select</option>"""
 	i = 1
 	while (i <= dict_name[id_name[0]] ):
 		link = gen_code_html+"#"+id_name[0]+"_"+(str(i))
 		name = id_name[0]+"_"+(str(i))
 		select += '<option value="'+link+'">'+dict_link[name]+'</option>'
 		i+=1
-	select += '</select></form>'
+	select += '</select></form></td></tr>'
 	line +=select
 	return line
-
-
 
 #srs.txt
 def write_srs_content(line):
@@ -94,11 +121,21 @@ def write_srs_content(line):
 	if line.find("[id=rq")!=-1:
 		line = srs_part(line,'rq',dict_rq,srs)
 		
-	if line.find("[id=ra")!=-1:
+	elif line.find("[id=ra")!=-1:
 		line = srs_part(line,'ra',dict_ra,srs)
 
-	if line.find("[id=tc")!=-1:
+	elif line.find("[id=tc")!=-1:
 		line = srs_part(line,'tc',dict_tc,srs)
+
+	elif line.find("Priority")!=-1:
+		line = line.replace("Priority","""
+			<tr align="center">
+				<td>Priority</td>
+			""")
+		# 用于预防description的长度过长超出id所在的那行
+		line = line.replace("[","""<td colspan="3">""")
+		line = line.replace("]","</td></tr></table>")
+
 
 	return line
 
