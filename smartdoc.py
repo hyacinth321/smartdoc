@@ -37,7 +37,7 @@ def code_find_link(line,name,dict_name,srs_name):
 	id_whole = id_name[0]+"_"+str(dict_name[id_name[0]])
 	link = gen_srs_html+"#"+id_name[0]
 
-	line=re.sub("#{see "+id_name[0]+"}","<a href='"+link+"' id='"+id_whole+"'>"+"#{see "+id_name[0]+"}"+"</a>",line)
+	line=re.sub(r"#\s?{see "+id_name[0]+"}","<a href='"+link+"' id='"+id_whole+"'>"+"#{see "+id_name[0]+"}"+"</a>",line)
 	return line
 
 #code.py
@@ -56,13 +56,13 @@ def write_code_content(line):
 		name_func=''
 		line_num = 0
 
-	if line.find("#{see rq")!=-1:
+	if line.find("{see rq")!=-1:
 		line = code_find_link(line,'rq',dict_rq,srs)
 
-	if line.find("#{see ra")!=-1:
+	if line.find("{see ra")!=-1:
 		line = code_find_link(line,'ra',dict_ra,srs)
 
-	if line.find("#{see tc")!=-1:
+	if line.find("{see tc")!=-1:
 		line = code_find_link(line,'tc',dict_tc,srs)
 
 	return line
@@ -98,7 +98,7 @@ def srs_part(line,name,dict_name,srs_name):
 			<tr align="center">
 				<td>TestCase</td>
 			""",line)
-	line = line.replace("[id","<td>[id")
+	line = line.replace("[id","<td id='"+id_name[0]+"''>[id")
 	line = line.replace("[description","</td><td>[description")
 
 	# 修改id链接
