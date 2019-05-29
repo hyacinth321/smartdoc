@@ -98,8 +98,8 @@ def srs_part(line,name,dict_name,srs_name):
 			<tr align="center">
 				<td>TestCase</td>
 			""",line)
-	line = line.replace("[id","<td id='"+id_name[0]+"''>[id")
-	line = line.replace("[description","</td><td>[description")
+	line = re.sub(r"\[id\s?=\s?","<td id='"+id_name[0]+"''>[",line)
+	line = re.sub(r"\[description\s?=\s?","</td><td>[",line)
 
 	# 修改id链接
 	srs[id_name[0]]=''
