@@ -6,6 +6,7 @@ import webbrowser,sys,re
 file_code_addr,file_srs_addr = sys.argv[1],sys.argv[2]
 gen_code_html,gen_srs_html = "code.html","srs.html"
 dict_rq,dict_ra,dict_tc,dict_link,srs = {},{},{},{},{}
+rq_ra,rq_tc={},{}
 
 f_code_txt = open(file_code_addr,'r')
 f_srs_txt = open(file_srs_addr,'r')
@@ -70,29 +71,43 @@ def write_code_content(line):
 # srs_part(line,rq,dict_rq,srs)
 # 用于为#{see ..}生成链接
 # 将内容添入table显示在html页面
+status=[]
+store_ra,store_tc = [],[]
 def srs_part(line,name,dict_name,srs_name):
 	id_name = re.findall((name+r"\d"),line)
-	# 生成table
+	# 
 	if name == 'rq':
+		# status存储当前表格的rq名，store_tc/ra代表该rq对应的tc/ra名
+		# 当读取新一个表，即读取到rq时，list都清空，重新存储
+		status.clear()
+		store_tc.clear()
+		store_ra.clear()
+		status.append(id_name[0])
+		if not id_name[0] in rq_ra:
+			rq_ra[id_name[0]] = ''
+			rq_tc[id_name[0]] = ''
+
 		line = re.sub("@Requirement","""
 			<table align="center" border="1" width="80%" bgcolor="#e9faff" cellpadding="2">
 			<tr align="center">
-           		<td>Name</td>
-           		<td>id</td>
-            	<td>description</td>
-            	<td>link</td>
-        	</tr>
-        	<tr align="center">
+       			<td>Name</td>
+       			<td>id</td>
+           		<td>description</td>
+           		<td>link</td>
+       		</tr>
+       		<tr align="center">
 				<td>Requirement</td>
 			""",line)
 	elif name == 'ra':
+		store_ra.append(id_name[0])
 		line = re.sub("Rationale","""
 				</td>
 			</tr>
 			<tr align="center">
 				<td>Rational</td>
 			""",line)
-	else:
+	elif name =='tc':
+		store_tc.append(id_name[0])
 		line = re.sub("TestCase","""
 				</td>
 			<tr align="center">
@@ -106,6 +121,8 @@ def srs_part(line,name,dict_name,srs_name):
 	link = gen_code_html+"#"+id_name[0]
 	select = """</td><td><form action="" method="get" style="margin:0px;"><select name="jump" id="jumo" onchange="MM_jump('window',this)"><option value="srs.html">please select</option>"""
 	i = 1
+	if not id_name[0] in dict_name:
+		dict_name[id_name[0]]=0
 	while (i <= dict_name[id_name[0]] ):
 		link = gen_code_html+"#"+id_name[0]+"_"+(str(i))
 		name = id_name[0]+"_"+(str(i))
@@ -113,6 +130,7 @@ def srs_part(line,name,dict_name,srs_name):
 		i+=1
 	select += '</select></form></td></tr>'
 	line +=select
+
 	return line
 
 #srs.txt
@@ -128,6 +146,18 @@ def write_srs_content(line):
 		line = srs_part(line,'tc',dict_tc,srs)
 
 	elif line.find("Priority")!=-1:
+		# 这里用在创建list_ra与list_tc存储store_ra与store_tc
+		# 而不是直接使用store_..，可能与地址有关，
+		# 字典中前一个数据的改变会随着后一个数据的变化再变化
+		list_ra,list_tc=[],[]
+		for i in store_ra:
+			list_ra.append(i)
+		for i in store_tc:
+			list_tc.append(i)
+		rq_ra[status[0]] = list_ra
+		rq_tc[status[0]] = list_tc
+		#rq_ra[status[0]] = store_ra
+		#rq_tc[status[0]] = store_tc
 		line = line.replace("Priority","""
 			<tr align="center">
 				<td>Priority</td>
@@ -135,7 +165,6 @@ def write_srs_content(line):
 		# 用于预防description的长度过长超出id所在的那行
 		line = line.replace("[","""<td colspan="3">""")
 		line = line.replace("]","</td></tr></table>")
-
 
 	return line
 
@@ -164,26 +193,32 @@ def read_code(txt,html):
 # 通过srs.html中的id，将code.html不存在于srs_id中的id的对应链接修改为wrong.html
 def update_code(file):
 	file_data = ''
-	new_str = 'href="www.baidu.com"'
+	new_str = 'href=wrong.html'
 	with open(file, "r") as f:
 		for line in f:
-			if line.find("#{see rq")!=-1:
+			if line.find("{see rq")!=-1:
 				id_name = re.findall(("rq"+r"\d"),line)
 				if id_name[0] in line:
 					old_str = "href='srs.html#"+id_name[0]+"'"
 					if not id_name[0] in srs:
+						if id_name[0] in dict_rq:
+							dict_rq.pop(id_name[0])
 						line = line.replace(old_str,new_str)
-			if line.find("#{see ra")!=-1:
+			if line.find("{see ra")!=-1:
 				id_name = re.findall(("ra"+r"\d"),line)
 				if id_name[0] in line:
 					old_str = "href='srs.html#"+id_name[0]+"'"
 					if not id_name[0] in srs:
+						if id_name[0] in dict_ra:
+							dict_ra.pop(id_name[0])
 						line = line.replace(old_str,new_str)
-			if line.find("#{see tc")!=-1:
+			if line.find("{see tc")!=-1:
 				id_name = re.findall(("tc"+r"\d"),line)
 				if id_name[0] in line:
 					old_str = "href='srs.html#"+id_name[0]+"'"
 					if not id_name[0] in srs:
+						if id_name[0] in dict_tc:
+							dict_tc.pop(id_name[0])
 						line = line.replace(old_str,new_str)
 			file_data += line
 	with open(file,"w") as f:
@@ -216,10 +251,69 @@ def write_srs_html(txt,html,gen_srs_html):
 		link = write_srs_content(line)
 		html.write(link)
 		link =''
+
+	# 再加matrix前，由于要用到dict_rq/ra/tc，此时存储是根据code.html，字典中某些数据可能存在与code界面但不存在与srs界面
+	# 在此处修改字典中的数据
+	update_code(gen_code_html)
+	# 加traceable matrix
+	num_rq = 0
+	for value in dict_rq.values():
+		num_rq = num_rq+value
+
+	html.write(make_matrix(dict_ra,num_rq))
+	html.write(make_matrix(dict_tc,num_rq))
 	html.write("</pre>")
 	write_foot(html)
 	txt.close()
 	html.close()
+
+# 制作traceable matrix
+def make_matrix(dict_name,dict_rq_num):
+	index_list=[]
+	store_list =[]
+	num_name = 0
+	num_rq=dict_rq_num
+	for value in dict_name.values():
+		num_name = num_name+1
+	table = """
+	<table border="1" bgcolor="#e9faff" cellpadding="2" style="margin-left:20%;float:left">
+		<caption>traceabl matrix</caption>
+		<tr>
+			<td></td>
+	"""
+	for key,value in dict_name.items():
+		num = num_name
+		table = table+"<td>"+str(key)+"</td>"
+	table = table +"</tr>"
+
+	for key,value in dict_rq.items():
+		index_list.clear()
+		store_list.clear()
+		# 通过key查找rq_ra/rq_tc中的['ra1']或['tc1','tc3']
+		if dict_name == dict_ra:
+			store_list = rq_ra[key]
+		if dict_name == dict_tc:
+			store_list = rq_tc[key]
+
+		for i in dict_name:
+			if i in store_list:
+				index_list.append(list(dict_name.keys()).index(i))
+
+		num = value
+		dict_name_num = num_name # 存储ra或tc的总条数，变化不影响原值，可再用
+		table = table+"<tr><td>"+str(key)+"</td>"
+		index=0
+		while(dict_name_num>0):
+			if index in index_list:
+				table = table+"<td>√</td>"
+			else:
+				table = table+"<td></td>"
+			dict_name_num = dict_name_num-1
+			index = index+1
+		table = table+"</tr>"
+		index=0
+	table = table+"</table>"
+	return table
 
 def write_head(html,title):
 	head = """
@@ -245,6 +339,7 @@ def write_css(html):
 	a:visited {background-color:#FFFF85;}
 	a:hover {background-color:#FF704D;}
 	a:active {background-color:#FF704D;}
+	table {}
 	</style>
 	</head>
 	<body>
@@ -261,4 +356,3 @@ if __name__ == '__main__':
 	write_code_html(f_code_txt,f_code_html,gen_code_html)
 	write_srs_html(f_srs_txt,f_srs_html,gen_srs_html)
 	read_code(f_code_txt,f_code_html) # 可不用
-	update_code(gen_code_html)
