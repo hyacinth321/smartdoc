@@ -1,11 +1,8 @@
 <html>
 <head>
-<title>smartdoc</title>
+<title>smartdoc -- a command line program that generates a cross-linked software document in HTML format</title>
 <meta charset="utf-8">
 <script>
-function open_software() {
-	window.open("https://github.com/hyacinth321/smartdoc");
-}
 function open_document(){
 	window.open("https://github.com/hyacinth321/smartdoc/blob/master/README.md");
 }
@@ -48,14 +45,26 @@ table{
 	margin-right:150px;
 	line-height:100px;
 }
+.half_part a{
+	color:blue;
+}
+.half_part a:hover{
+	color:#CD919E;
+}
+.half_part{
+	width:40%;
+	height:350px;
+	margin: 20px 50px;
+}
 a{
 	text-decoration:none;
 	color:#B0E0E6;
 }
-.half_part{
-	width:40%;
-	height:300px;
-	margin: 20px 50px;
+a:link{
+	color:#93F;
+}
+a:hover{
+	color:#CD919E;
 }
 .left{
 	float:left;
@@ -100,12 +109,13 @@ a{
 .foot{
 	position:fixed;
 	bottom:0px;
-	left:40%;
+	left: 42%;
 	background:none;
 	margin:0;
 	padding:0;
-	color:#400040;
+	color:#000;
 	font-style:oblique;
+	font-size: 10px;
 }
 </style>
 </head>
@@ -116,24 +126,27 @@ a{
 </div>
 <div class="right top">
 <p style="text-align:right;color:#B0E0E6;">
-<a href="smartdoc.html">我目前</a>   |   <a href="smartdoc.html">不知道</a>   |   <a href="smartdoc.html">加什么</a>
+<a href="smartdoc.html" class="top_link">SmartDoc</a>   |   <a href="smartdoc.html" class="top_link">SmartDoc</a>   |   <a href="smartdoc.html" class="top_link">SmartDoc</a>
 </p>
 </div>
 </div>
-
 <div align="center">
 <div class="rectangle">
-<div class="link button" onClick="open_software()">Download</div>
+<div class="link button"><a href="smartdoc.rar" download="smartdoc" style="color:#FFF;">Download</a></div>
 <a href="#license"><div class="link button">License</div></a>
 <a href="#status"><div class="link button">Status</div></a>
-<a href="#document"><div class="link button">Document</div></a>
-<a href="#version-information"><div class="link button">Version-Info</div></a>
+<a href="#document"><div class="link button">Documentation</div></a>
+<a href="#version-information"><div class="link button">Version</div></a>
 </div>
 </div>
 
 <div class="part1" id="introduction">
-<div class="content-biaoti">PROJECT  INTRODUVTION</div>
-<div class="content">&emsp;This is a smartdoc project. Specific operations are as follows: when running a corresponding Python file such as smartdoc.py and passing the corresponding srs.txt and code.py files to it, two HTML files will be automatically generated, which are srs.html and code.html, and the content of srs.txt is the srs of code.py. In the generated code.html file, there are not only corresponding code, but also strings in front of each block of code (with specific forms), which can link to another HTML file, that is, the specific location of srs.html. Correspondingly, in the srs.html file can also jump to the corresponding location of the code.html file.</div>
+<div class="content-biaoti">PROJECT  INTRODUCTION</div>
+<div class="content">&emsp;Smartdoc is a command line program that generates a cross-linked software document in HTML format.<br/><br/>
+&emsp;Specific operations are as follows: when running a corresponding Python file such as smartdoc.py and passing the corresponding srs.txt and code.py files to it, two HTML files will be automatically generated, which are srs.html and code.html, and the content of srs.txt is the srs of code.py.<br/><br/>
+&emsp;In the generated code.html file, there are not only corresponding code, but also strings in front of each block of code (with specific format), which can link to the specific location of srs.html file.<br/><br/>
+&emsp;Correspondingly, in the srs.html file can also jump to the corresponding location of the code.html file. At the bottom of the srs.html, there are two traceable matrix.
+</div>
 </div>
 
 <hr style=" margin-top:40px;height:2px;border:none;border-top:2px dotted #185598;" />
@@ -142,19 +155,22 @@ a{
 <div class="part1 half_part left" id="document">
 <p align="center">DOCUMENT</p>
 <p class="content">
-&emsp;SmartDoc, a project which aim at making users to find the corresponding explanation in the srs file more quickly when thinking about the code.<br/>
-&emsp;Two html file will be generated which are code.html and srs.html.<br/>
+&emsp;SmartDoc, a project which aim at making users to find the corresponding explanation in the srs file more quickly when thinking about the code.<br/><br/>
+&emsp;Two html file will be generated which are code.html and srs.html.<br/><br/>
 &emsp;In the srs.html, there will be links which can be in a sentence "{see ???}" to go the corresponding place in the code.html. And code.html also has links to go to srs.html for correct explanation.<br/>
 </p>
 <p align="center"><input type="button" class="button" value="Detailed Document" onClick="open_document()"></p>
 </div>
 
 <div class="part1 half_part right" id="version-information">
-<p align="center">VERSION-INFO</p>
-0.1.0: html file generated via txt file.<br/><br/>
+<p align="center">VERSION-INFORMATION</p>
+0.1.0: HTML file generated via txt file.<br/><br/>
 0.1.1: Change the foramt of the generated html file.<br/><br/>
 0.2.0: Link the two generated html file via specific word.<br/><br/>
-0.2.1: Change the style of the link in the generated html.<br/>
+0.2.1: Change the style of the link in the generated html.<br/><br/>
+0.3.0: Code update, function more perfect.<br/><br/>
+0.3.1: Updating the UI of the generated two file: code.html and srs.html.<br/>
+<a href="https://github.com/hyacinth321/smartdoc/commits/master" target="_blank" style="float: right;margin: 10px;">To know more development details?</a>
 </div>
 </div>
 
@@ -166,13 +182,20 @@ a{
 
 <div class="part1 half_part right" id="status">
 <p align="center">STATUS</p>
-Still In Development
+Still In Development<br/>
+<a href="http://118.25.96.118/bugzilla/buglist.cgi?component=Project%20Homepage&product=SmartDoc%20%28Jin%20Ruoni%29&resolution=---" target="_blank" style="float: right;margin: 10px;">To know bug-tracker?</a><br/><br/>
+<p align="center">Smaple input</p>
+<div class="button"><a href="srs.txt" download="srs.txt" style="color:#FFF;">srs.txt</a></div>
+<div class="button"><a href="code.py" download="code.py" style="color:#FFF;">code.py</a></div>
+<p align="center">Output</p>
+<div class="button"><a href="srs.html" download="srs.html" style="color:#FFF;">srs.html</a></div>
+<div class="button"><a href="code.html" download="code.html" style="color:#FFF;">code.html</a></div>
 </div>
 </div>
 
 <div class="foot" align="center">
-	<p align="center">Current Version:0.2.1</p>
-    <p align="center">Connact JinRuoni:422491927@qq.com</p>
+	<p align="center">Current Version:0.3.1</p>
+    <p align="center">Contact JinRuoni:422491927@qq.com</p>
 </div>
 </body>
 </html>
