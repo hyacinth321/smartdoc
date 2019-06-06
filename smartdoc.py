@@ -19,7 +19,7 @@ line_num = 0
 # code_find_link(line,rq,dict_rq,srs)
 # 用于为#{see ..}生成链接
 def code_find_link(line,name,dict_name,srs_name):
-	id_name = re.findall((name+r"\d"),line)
+	id_name = re.findall((name+r"\d+"),line)
 	if not id_name[0] in dict_name:
 		dict_name[id_name[0]] = 1
 	else:
@@ -74,7 +74,7 @@ def write_code_content(line):
 status=[]
 store_ra,store_tc = [],[]
 def srs_part(line,name,dict_name,srs_name):
-	id_name = re.findall((name+r"\d"),line)
+	id_name = re.findall((name+r"\d+"),line)
 	# 
 	if name == 'rq':
 		# status存储当前表格的rq名，store_tc/ra代表该rq对应的tc/ra名
@@ -197,7 +197,7 @@ def update_code(file):
 	with open(file, "r") as f:
 		for line in f:
 			if line.find("{see rq")!=-1:
-				id_name = re.findall(("rq"+r"\d"),line)
+				id_name = re.findall(("rq"+r"\d+"),line)
 				if id_name[0] in line:
 					old_str = "href='srs.html#"+id_name[0]+"'"
 					if not id_name[0] in srs:
@@ -205,7 +205,7 @@ def update_code(file):
 							dict_rq.pop(id_name[0])
 						line = line.replace(old_str,new_str)
 			if line.find("{see ra")!=-1:
-				id_name = re.findall(("ra"+r"\d"),line)
+				id_name = re.findall(("ra"+r"\d+"),line)
 				if id_name[0] in line:
 					old_str = "href='srs.html#"+id_name[0]+"'"
 					if not id_name[0] in srs:
@@ -213,7 +213,7 @@ def update_code(file):
 							dict_ra.pop(id_name[0])
 						line = line.replace(old_str,new_str)
 			if line.find("{see tc")!=-1:
-				id_name = re.findall(("tc"+r"\d"),line)
+				id_name = re.findall(("tc"+r"\d+"),line)
 				if id_name[0] in line:
 					old_str = "href='srs.html#"+id_name[0]+"'"
 					if not id_name[0] in srs:
@@ -252,9 +252,10 @@ def write_srs_html(txt,html,gen_srs_html):
 		html.write(link)
 		link =''
 
-	# 再加matrix前，由于要用到dict_rq/ra/tc，此时存储是根据code.html，字典中某些数据可能存在与code界面但不存在与srs界面
-	# 在此处修改字典中的数据
+	# 再加matrix前，由于要用到dict_rq/ra/tc，此时存储是根据code.html，字典中某些数据可能存在于code界面但不存在于srs界面
+	# 在此处修改字典中的数据 即删除存在于code中但不存在于srs中的数据
 	update_code(gen_code_html)
+
 	# 加traceable matrix
 	num_rq = 0
 	for value in dict_rq.values():
@@ -277,7 +278,7 @@ def make_matrix(dict_name,dict_rq_num):
 		num_name = num_name+1
 	table = """
 	<table border="1" bgcolor="#e9faff" cellpadding="2" style="margin-left:20%;float:left">
-		<caption>traceabl matrix</caption>
+		<caption>traceable matrix</caption>
 		<tr>
 			<td></td>
 	"""
